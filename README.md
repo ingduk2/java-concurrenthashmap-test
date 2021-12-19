@@ -15,7 +15,7 @@ Java Map 구현체 비교
 #### ConcurrentHashMap
 * Thread Safe(조건부) **여러개의 Action은 보장하지 않음**(get후 없을 경우 put), 복합작업 메서드 **computeXXX** 지원
 * dto, vo update 할때는 concurrentHashMap과 관계가 없다. (그래서 atomic 필요한듯)
-* 빈 해시 버킷에 삽입하는 경우 lock 사용 X, Compare and Swap 사용
+* 빈 해시 버킷에 삽입하는 경우 lock 사용 X, Compare and Swap(동시성 알고리즘,변수 값을 예상 값과 비교하고 값이 같으면 변수 값을 새 값으로 교환) 사용
 * 이미 노드가 있는 경우 synchronized를 이용해 동기화
 ---
 ### Test 구성
