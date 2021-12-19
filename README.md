@@ -38,6 +38,8 @@ Test
   * no synchronized
     * v13. atomic dto, ConcurrentHashMap, computeIfAbsent **성공!!!!**
     * v15. atomic dto, ConcurrentHashMap, getAndPut **실패 (복합작업이라서 보장을 못해주는듯)** (1번 여러번 돌리면 잘 실패하는데, repeated하면 1~2개빼고 거의 성공하는데 이유는 못찾음..)
+> [실행 캡처](https://ingduk2.notion.site/java-concurrentHashMap-5078ac2bbeb24c8889b5967e27fe27a5)
+
 
 #### synchronized 사용
 * v2. int dto, hashMap, **synchronized method** computeIfAbsent **성공**
