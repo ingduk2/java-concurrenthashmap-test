@@ -18,7 +18,8 @@ Java Map 구현체 비교
 * 빈 해시 버킷에 삽입하는 경우 lock 사용 X, Compare and Swap 사용
 * 이미 노드가 있는 경우 synchronized를 이용해 동기화
 ---
-Test
+### Test 구성
+![스크린샷 2021-12-19 오후 7 09 27](https://user-images.githubusercontent.com/9349626/146671234-d1ac4d73-895e-4acb-bb52-5ce1e123bcbb.png)
 #### int, long 등 primitive(기본형 타입) Dto
 * hashmap
   * no synchronized
