@@ -52,10 +52,10 @@ Test
 [삽질만 안하면 성공함.](https://github.com/ingduk2/java-concurrenthashmap-test/blob/master/vain.md)
 
 * reference
-  * https://sup2is.github.io/2020/11/02/java-synchroinzed-keyword.html
-  * https://www.baeldung.com/java-testing-multithreaded
-  * http://blog.breakingthat.com/2019/04/04/java-collection-map-concurrenthashmap/
-  * https://pplenty.tistory.com/17
-  * https://tomining.tistory.com/169
+  * [Java의 Synchronized 키워드](https://sup2is.github.io/2020/11/02/java-synchroinzed-keyword.html)
+  * [Testing Multi-Threaded Code in Java](https://www.baeldung.com/java-testing-multithreaded)
+  * [concurrentHashMap 예제 및 주의점](http://blog.breakingthat.com/2019/04/04/java-collection-map-concurrenthashmap/)
+  * [concurrentHashMap 동기화 방식](https://pplenty.tistory.com/17)
+  * [HashMap, Hashtable, ConcurrentHashMap 동기화 처리 방식](https://tomining.tistory.com/169)
   * [atomic](https://acet.pe.kr/809)
   * [atomic](https://bestugi.tistory.com/41)
