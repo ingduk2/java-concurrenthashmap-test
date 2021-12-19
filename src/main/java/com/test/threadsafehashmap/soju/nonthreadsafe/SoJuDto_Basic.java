@@ -8,11 +8,11 @@ import lombok.*;
 public class SoJuDto_Basic {
 
     private String name;
-    private long count;
+    private int count;
     private long price;
 
     @Builder
-    public SoJuDto_Basic(String name, long count, long price) {
+    public SoJuDto_Basic(String name, int count, long price) {
         this.name = name;
         this.count = count;
         this.price = price;

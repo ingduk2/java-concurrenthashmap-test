@@ -1,6 +1,6 @@
-# ConcurrentHashMap count sum Test
+# ConcurrentHashMap sum Test
 #### concurrentHashMap 을 써도 ThreadSafe 하지 않아서 여러가지 노가다로 테스트 해봄
-#### spring bean singleton 이기 때문에 Class에 상태값을 가지면 동기화 문제가 발생 할 수밖에 없음
+#### spring bean은 singleton 이기 때문에 Class에 상태값을 가지면 동기화 문제가 발생 할 수밖에 없음
 #### 뇌피셜이 많이 들어가 있으며, 틀린 부분이 있을 수도 있고, 저만 모르는 걸수도 있음..
 * #### 결론 1. : synchronized 쓰면 걍 해결됨! 그러나 트래픽이 오를수록, synchronized 부분에서 **시간이 소요하는 만큼** 배로 성능 저하(db call, restapi call 등이 있을듯). concurrentHashMap의 의미가 없음..
 * #### 결론 2. : atomic Dto, ConcurrentHashMap, computeXXX 연산 사용(get and put X)
@@ -15,8 +15,8 @@ Java Map 구현체 비교
 #### ConcurrentHashMap
 * Thread Safe(조건부) **여러개의 Action은 보장하지 않음**(get후 없을 경우 put), 복합작업 메서드 **computeXXX** 지원
 * dto, vo update 할때는 concurrentHashMap과 관계가 없다. (그래서 atomic 필요한듯)
-* 빈 해시 버킷에 삽입하는 경우 lock 사용 X, Compare and Swap(동시성 알고리즘,변수 값을 예상 값과 비교하고 일치하면 새 값으로 교환) 사용
-* 이미 노드가 있는 경우에 synchronized를 이용해 동기화(그래서 성능이 좋음)
+* 빈 해시 버킷에 삽입하는 경우 lock 사용 X, **Compare and Swap**(동시성 알고리즘,변수 값을 예상 값과 비교하고 일치하면 새 값으로 교환) 사용
+* 이미 노드가 있는 경우에만 synchronized를 이용해 동기화(그래서 성능이 좋음)
 ---
 ### Test 구성
 ![스크린샷 2021-12-19 오후 7 09 27](https://user-images.githubusercontent.com/9349626/146671234-d1ac4d73-895e-4acb-bb52-5ce1e123bcbb.png)

@@ -30,8 +30,9 @@ public class V11Test {
     }
 
     @RepeatedTest(10)
-    void testV1() {
+    void testV11Test() {
         int loopSize = 30;
+        int innerLoopSize = 30;
         CountDownLatch countDownLatch = new CountDownLatch(loopSize);
         ExecutorService executorService = Executors.newFixedThreadPool(30);
 
@@ -46,7 +47,9 @@ public class V11Test {
 
             executorService.submit(() -> {
                 try {
-                    service_atomic.sumGetAndPut(soJuDto);
+                    for (int j = 0; j < innerLoopSize; j++) {
+                        service_atomic.sumGetAndPut(soJuDto);
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 } finally {
@@ -70,23 +73,23 @@ public class V11Test {
 
         Assertions.assertThat(
                 hashMap.get(SoJuType.JINRO_IS_BACK.name()).getCount())
-                .isEqualTo(loopSize / 3);
+                .isEqualTo(loopSize * innerLoopSize / 3);
         Assertions.assertThat(
                 hashMap.get(SoJuType.JINRO_IS_BACK.name()).getPrice())
-                .isEqualTo(loopSize / 3 * SoJuType.JINRO_IS_BACK.getPrice());
+                .isEqualTo(loopSize * innerLoopSize / 3 * SoJuType.JINRO_IS_BACK.getPrice());
 
         Assertions.assertThat(
                 hashMap.get(SoJuType.CHAM_ISLE.name()).getCount())
-                .isEqualTo(loopSize / 3);
+                .isEqualTo(loopSize * innerLoopSize / 3);
         Assertions.assertThat(
                 hashMap.get(SoJuType.CHAM_ISLE.name()).getPrice())
-                .isEqualTo(loopSize / 3 * SoJuType.CHAM_ISLE.getPrice());
+                .isEqualTo(loopSize * innerLoopSize / 3 * SoJuType.CHAM_ISLE.getPrice());
 
         Assertions.assertThat(
                 hashMap.get(SoJuType.CHUEM_CHURUM.name()).getCount())
-                .isEqualTo(loopSize / 3);
+                .isEqualTo(loopSize * innerLoopSize / 3);
         Assertions.assertThat(
                 hashMap.get(SoJuType.CHUEM_CHURUM.name()).getPrice())
-                .isEqualTo(loopSize / 3 * SoJuType.CHUEM_CHURUM.getPrice());
+                .isEqualTo(loopSize * innerLoopSize/ 3 * SoJuType.CHUEM_CHURUM.getPrice());
     }
 }

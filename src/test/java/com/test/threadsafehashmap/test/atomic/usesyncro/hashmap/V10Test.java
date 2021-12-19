@@ -31,7 +31,7 @@ public class V10Test {
     }
 
     @RepeatedTest(10)
-    void testV1() {
+    void testV10Test() {
         int loopSize = 30;
         int innerLoopSize = 10;
         CountDownLatch countDownLatch = new CountDownLatch(loopSize);

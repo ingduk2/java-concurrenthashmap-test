@@ -30,9 +30,10 @@ public class V16Test {
         service_atomic_synchronized = new SoJuManageService_Atomic_Synchronized(concurrentHashMap);
     }
 
-    @RepeatedTest(1)
-    void testV1() {
-        int loopSize = 30;
+    @RepeatedTest(1000)
+    void testV16Test() {
+        int loopSize = 300;
+        int innerLoopSize = 30;
         CountDownLatch countDownLatch = new CountDownLatch(loopSize);
         ExecutorService executorService = Executors.newFixedThreadPool(30);
 
@@ -47,7 +48,7 @@ public class V16Test {
 
             executorService.submit(() -> {
                 try {
-                    for (int j = 0; j < loopSize; j++) {
+                    for (int j = 0; j < innerLoopSize; j++) {
                         service_atomic_synchronized.sumGetAndPut(soJuDto);
                     }
                 } catch (Exception e) {
@@ -73,23 +74,23 @@ public class V16Test {
 
         Assertions.assertThat(
                         concurrentHashMap.get(SoJuType.JINRO_IS_BACK.name()).getCount())
-                .isEqualTo(loopSize * loopSize / 3);
+                .isEqualTo(loopSize * innerLoopSize / 3);
         Assertions.assertThat(
                         concurrentHashMap.get(SoJuType.JINRO_IS_BACK.name()).getPrice())
-                .isEqualTo(loopSize * loopSize / 3 * SoJuType.JINRO_IS_BACK.getPrice());
+                .isEqualTo(loopSize * innerLoopSize / 3 * SoJuType.JINRO_IS_BACK.getPrice());
 
         Assertions.assertThat(
                         concurrentHashMap.get(SoJuType.CHAM_ISLE.name()).getCount())
-                .isEqualTo(loopSize * loopSize/ 3);
+                .isEqualTo(loopSize * innerLoopSize/ 3);
         Assertions.assertThat(
                         concurrentHashMap.get(SoJuType.CHAM_ISLE.name()).getPrice())
-                .isEqualTo(loopSize * loopSize / 3 * SoJuType.CHAM_ISLE.getPrice());
+                .isEqualTo(loopSize * innerLoopSize / 3 * SoJuType.CHAM_ISLE.getPrice());
 
         Assertions.assertThat(
                         concurrentHashMap.get(SoJuType.CHUEM_CHURUM.name()).getCount())
-                .isEqualTo(loopSize * loopSize / 3);
+                .isEqualTo(loopSize * innerLoopSize / 3);
         Assertions.assertThat(
                         concurrentHashMap.get(SoJuType.CHUEM_CHURUM.name()).getPrice())
-                .isEqualTo(loopSize * loopSize / 3 * SoJuType.CHUEM_CHURUM.getPrice());
+                .isEqualTo(loopSize * innerLoopSize / 3 * SoJuType.CHUEM_CHURUM.getPrice());
     }
 }

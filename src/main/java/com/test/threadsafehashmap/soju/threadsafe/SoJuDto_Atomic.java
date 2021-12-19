@@ -14,7 +14,7 @@ public class SoJuDto_Atomic {
     private LongAdder price = new LongAdder();
 
     @Builder
-    public SoJuDto_Atomic(String name, long count, long price) {
+    public SoJuDto_Atomic(String name, int count, long price) {
         this.name = name;
         this.count.add(count);
         this.price.add(price);
@@ -41,8 +41,8 @@ public class SoJuDto_Atomic {
         this.price.add(soJuDto.getPrice());
     }
 
-    public long getCount() {
-        return this.count.longValue();
+    public int getCount() {
+        return this.count.intValue();
     }
 
     public long getPrice() {

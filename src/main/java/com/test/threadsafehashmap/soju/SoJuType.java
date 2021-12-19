@@ -8,10 +8,10 @@ public enum SoJuType {
     CHAM_ISLE(1, 6),
     CHUEM_CHURUM(1, 9);
 
-    private long count;
+    private int count;
     private long price;
 
-    SoJuType(long count, long price) {
+    SoJuType(int count, long price) {
         this.count = count;
         this.price = price;
     }
