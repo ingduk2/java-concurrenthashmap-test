@@ -49,8 +49,7 @@ Test
 * v14. atomic dto, ConcurrentHashMap, **synchronized method** computeIfAbsent **성공**
 * v16. atomic dto, ConcurrentHashMap, **synchronized method** getAndPut **성공**
 
-삽질만 안하면 성공함.
-
+[삽질만 안하면 성공함.](https://github.com/ingduk2/java-concurrenthashmap-test/blob/master/vain.md)
 
 * reference
   * https://sup2is.github.io/2020/11/02/java-synchroinzed-keyword.html
