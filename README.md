@@ -3,7 +3,16 @@
 #### spring bean은 singleton 이기 때문에 Class에 상태값을 가지면 동기화 문제가 발생 할 수밖에 없음
 #### 뇌피셜이 많이 들어가 있으며, 틀린 부분이 있을 수도 있고, 저만 모르는 걸수도 있음..
 * #### 결론 1. : synchronized 쓰면 걍 해결됨! 그러나 트래픽이 오를수록, synchronized 부분에서 **시간이 소요하는 만큼** 배로 성능 저하(db call, restapi call 등이 있을듯). concurrentHashMap의 의미가 없음..
-* #### 결론 2. : atomic Dto, ConcurrentHashMap, computeXXX 연산 사용(get and put X)
+* ## 결론 2. : atomic Dto, ConcurrentHashMap, computeXXX 연산 사용(get and put X)
+아래와 같은 복합작업은 동기화 보장하지 않는다고함
+```java
+Dto dto = map.get(key);
+ if (dto == null){
+   map.put(key, dto);
+ } else {
+   dto.update(count);
+ }
+```
 * #### 더 좋은 방법이 있을 것 같은데 모르겠음....
 ---
 Java Map 구현체 비교
