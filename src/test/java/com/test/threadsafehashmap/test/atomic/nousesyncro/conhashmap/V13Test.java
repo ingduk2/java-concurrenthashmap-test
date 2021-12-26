@@ -14,6 +14,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * ## v13. atomic dto, ConcurrentHashMap, computeIfAbsent
@@ -23,19 +24,42 @@ public class V13Test {
 
     private SoJuManageService_Atomic service_atomic;
     private Map<String, SoJuDto_Atomic> concurrentHashMap;
-
+    private ReentrantLock lock;
     @BeforeEach
     void setUp() {
         concurrentHashMap = new ConcurrentHashMap<>();
         service_atomic = new SoJuManageService_Atomic(concurrentHashMap);
+        lock = new ReentrantLock();
     }
 
-    @RepeatedTest(1000)
-    void testV13Test() {
-        int loopSize = 3000;
-        int innerLoopSize = 300;
+    @RepeatedTest(1)
+    void testV13Test() throws InterruptedException {
+        int loopSize = 3000000;
+        int innerLoopSize = 1;
         CountDownLatch countDownLatch = new CountDownLatch(loopSize);
-        ExecutorService executorService = Executors.newFixedThreadPool(30);
+        ExecutorService executorService = Executors.newFixedThreadPool(300);
+        ExecutorService singleService = Executors.newSingleThreadExecutor();
+
+        SoJuDto_Atomic dto1 = SoJuDto_Atomic.getZeroDto(SoJuDto_Atomic.builder()
+                .name(SoJuType.CHAM_ISLE.name())
+                .build());
+        SoJuDto_Atomic dto2 = SoJuDto_Atomic.getZeroDto(SoJuDto_Atomic.builder()
+                .name(SoJuType.CHUEM_CHURUM.name())
+                .build());
+        SoJuDto_Atomic dto3 = SoJuDto_Atomic.getZeroDto(SoJuDto_Atomic.builder()
+                .name(SoJuType.JINRO_IS_BACK.name())
+                .build());
+        singleService.submit(() ->{
+            while (true) {
+                SoJuDto_Atomic saved1 = concurrentHashMap.remove(SoJuType.CHAM_ISLE.name());
+                dto1.updateCountAndPrice(saved1);
+                SoJuDto_Atomic saved2 = concurrentHashMap.remove(SoJuType.CHUEM_CHURUM.name());
+                dto2.updateCountAndPrice(saved2);
+                SoJuDto_Atomic saved3 = concurrentHashMap.remove(SoJuType.JINRO_IS_BACK.name());
+                dto3.updateCountAndPrice(saved3);
+                Thread.sleep(10);
+            }
+        });
 
         for(int i = 0; i < loopSize; i++) {
             int selector = (i % 3);
@@ -47,6 +71,7 @@ public class V13Test {
                     .build();
 
             executorService.submit(() -> {
+                lock.lock();
                 try {
                     for (int j = 0; j < innerLoopSize; j++) {
                         service_atomic.computeIfAbsent(soJuDto);
@@ -56,6 +81,7 @@ public class V13Test {
                 } finally {
                     countDownLatch.countDown();
                 }
+                lock.unlock();
             });
         }
 
@@ -67,6 +93,8 @@ public class V13Test {
         }
 
         executorService.shutdown();
+        Thread.sleep(100);
+        singleService.shutdown();
 
         log.info("{}", concurrentHashMap.get(SoJuType.JINRO_IS_BACK.name()));
         log.info("{}", concurrentHashMap.get(SoJuType.CHAM_ISLE.name()));
